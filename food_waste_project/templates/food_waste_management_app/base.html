@@ -14,7 +14,7 @@
     <!-- Navigation section -->
       <nav class="navbar navbar-expand-md navbar-light bg-gray fixed-top">
         <a class="navbar-brand" href="#">
-          <img src="#" href="#">
+          <img src="{% static 'images/front-page.png' %}" />
           Stop Food Waste
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -24,20 +24,45 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="#">Food Monitor</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Log in</a>
+              <a class="nav-link" href="{% url 'food_waste_management_app:register' %}">Sign up</a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Sign up</a>
+              <a class="nav-link" href="{% url 'food_waste_management_app:user_logout' %}">Log out</a>
             </li>
+              {% else %}
+            <li class='nav-item'>
+              <a class="nav-link" href="{% url 'food_waste_management_app:user_login' %}">Log in</a>
+            </li>
+            {% endif %}
+
           </ul>
         </div>
       </nav>
     <!-- End of Navigation -->
+
     {% block body_block %}
 
     {% endblock %}
+    <footer class="foot">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <div class="foot-note">
+              <p>
+                Do you have the GUTS (2019)?
+              </p>
+              <p class="text-uppercase">
+                Lenka, Patryk, Cristina
+              </p>
+                <img class="logo-footer" src="{% static 'images/front-page.png' %}" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

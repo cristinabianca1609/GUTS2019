@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from food_waste_management_app.forms import UserForm
+
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
+
+
 
 #Here you import any models that we will need to use
 #from food_waste_management_app.models import
@@ -9,6 +16,14 @@ from food_waste_management_app.forms import UserForm
 def index(request):
     return render(request, 'food_waste_management_app/index.html') #path from templates
 
+@login_required
+def special(request):
+    return HttpResponse("You are logged in!")
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('food_waste_management_app:index'))
 
 def register(request):
 
@@ -33,3 +48,25 @@ def register(request):
     return render(request, 'food_waste_management_app/registration.html',
                                         {'user_form': user_form,
                                             'registered': registered})
+
+def user_login(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username = username, password = password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('food_waste_management_app:index'))
+
+            else:
+                return HttpResponse('ACCOUNT NOT ACTIVE')
+
+        else:
+            print('Someone tried to login and failed.')
+            return HttpResponse('invalid login details supplied!')
+    else:
+        return render(request, 'food_waste_management_app/login.html')
