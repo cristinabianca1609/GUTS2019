@@ -21,5 +21,5 @@ from food_waste_management_app import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', include('food_waste_management_app.urls')),
+    url(r'^food_waste_management_app/', include('food_waste_management_app.urls')),
 ]
