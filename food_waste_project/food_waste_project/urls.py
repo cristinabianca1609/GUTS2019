@@ -18,8 +18,11 @@ from django.conf.urls import url
 from django.urls import path
 from django.conf.urls import include
 from food_waste_management_app import urls
+from food_waste_management_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^food_waste_management_app/', include('food_waste_management_app.urls')),
+    url(r'^logout/$', views.user_logout, name = 'logout'),
+    url(r'^special/', views.special, name='special')
 ]
