@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello World!")
+    return render(request, 'food_waste_management_app/index.html') #path from templates
