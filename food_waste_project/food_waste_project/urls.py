@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path
-from food_waste_management_app import views
+from django.conf.urls import include
+from food_waste_management_app import urls
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'), #access the view called index
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    url(r'^$', include('food_waste_management_app.urls')),
 ]
