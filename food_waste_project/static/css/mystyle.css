@@ -1,3 +1,104 @@
-h1 {
-  color: pink;
+body{
+	overflow-x: hidden;
+	font-family: 'Roboto Slab', serif;
+}
+
+/*==============================Navigation styles==============================*/
+.navbar{
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: .9rem;
+	letter-spacing: .1rem;
+	padding-top:0;
+	padding-bottom: 0;
+}
+
+.nav-item {
+  text-align: right;
+}
+
+.bg-dark{
+	background:transparent!important;
+}
+
+.bg-dark.scrolled{
+	background-color: rgba(0,0,0,0.6) !important;
+}
+
+.navbar-brand img{
+	height:3.5rem;
+	padding-left: 20px;
+}
+
+.navbar-nav li{
+	padding-right: 1rem;
+}
+
+.navbar-nav{
+	padding-right: 30px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+	color: white;
+	padding-top: .8rem;
+}
+
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:hover
+{
+		color:#1ebba3;
+}
+/*==============================End navigation styles==============================*/
+
+#front-text {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  font-size: 19px;
+}
+
+#front {
+  display: block;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+#button-log-in {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn, .btn-primary {
+  width: 100px;
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+
+/*===============This applies different styles for different media types/devices==================*/
+@media (max-width: 768px){
+
+}
+
+@media (min-width: 576px){
+  #front-text {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    font-size: 25px;
+  }
+
+}
+
+@media (max-width: 567px){
+
+}
+
+@media(min-width:567px){
+
 }

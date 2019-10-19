@@ -23,15 +23,15 @@ def barcodeReader(image):
         # return "Barcode: {} - Type: {}".format(bc.data.decode("utf-8"), bc.type)
         return {'barcode': bc.data.decode(), 'type': bc.type}
 
-#
-# cap = cv2.VideoCapture(0)
-# while (True):
-#     ret, frame = cap.read()
-#     barcode = barcodeReader(frame)
-#     if barcode is not None:
-#         print(barcode)
-#         break
-#     cv2.imshow('Barcode reader', frame)
-#     code = cv2.waitKey(10)
-#     if code == ord('q'):
-#         break
+
+cap = cv2.VideoCapture(0)
+while (True):
+    ret, frame = cap.read()
+    barcode = barcodeReader(frame)
+    if barcode is not None:
+        print(barcode)
+        break
+    cv2.imshow('Barcode reader', frame)
+    code = cv2.waitKey(10)
+    if code == ord('q'):
+        break
