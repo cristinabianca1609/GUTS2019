@@ -11,6 +11,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from ics import Calendar, Event
+
 from food_waste_management_app.scanner import barcodeReader
 from .models import User, UserProduct, Barcode
 
@@ -89,66 +91,19 @@ def food_monitor(request):
 
 #### Database Queries
 
-# def foo(request):
-#     if request.method == 'GET':
-#         print('request', request)
-#         print ('this function was triggered')
-#     else:
-#         print ('fdddddddd')
-#     response = ''
-#     #
-#     # random_var = None
-#     #
-#     # if request.method == 'GET':
-#     #     random_var = request.GET['random_var']
-#     #     print('var_id is ', random_var)
-#     # if request.method == 'get':
-#     #     # form  = FooForm(request.get)
-#     #     val = form.cleaned_data.get('btn')
-#     # return render(request, 'index.html', locals())
-#
-#     return HttpResponse()
-
-#
-# def print_from_button(request):
-#
-#     if(request.GET.get('print_btn')):
-#         print( int(request.GET.get('mytextbox')) )
-#         print('Button clicked')
-#     return render(request, 'your-template.html',{'value':'Button clicked'})
-
-
-# def _get_username(request):
-#     username = None
-#     if request.user.is_authenticated():
-#         username = request.user.username
-#         user_id = User.objects.filter(username=username)[0]
-#         return user_id
-#     return username
-
-def list_user_products(request):
+def list_user_products(id):
+    result = UserProduct.objects.all().filter(user_id=id)
     product_exp = dict()
-    if request.method == 'GET':
+    for i in result:
+        name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
+        product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
 
-        if request.user.is_authenticated:
-            # username = request.user.username
-            user_id = User.objects.filter(username=request.user.username)[0].id
-
-            result = UserProduct.objects.all().filter(user_id=user_id)
-            for i in result:
-                name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
-                product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
-            print (product_exp)
-
-        return JsonResponse(product_exp)  # dictinary - list value
-    return HttpResponse('this was called - cant believe')
+    return product_exp  # dictinary - list value
 
 
-# return JsonResponse({'foo':'bar'})
-#
-# def get_user_id(username):
-#     result = User.objects.filter(username=username)[0]
-#     return result.id  # user_id
+def get_user_id(username):
+    result = User.objects.filter(username=username)[0]
+    return result.id  # user_id
 
 def scan_barcode():
     cap = cv2.VideoCapture(0)
@@ -162,50 +117,57 @@ def scan_barcode():
         #     break
 
 
-# # def add_user_product(username):
-# #     barcode_info = scan_barcode()
-# #     barcode = barcode_info['barcode']
-# #     #     is in DB?
-# #     try:
-# #         result = Barcode.objects.filter(Barcode.barcode_no == barcode)
-# #         user = User.objects.filter(User.username == username)
-# #         user.barcode_no = barcode
-# #         user.save()
-# #     except:
-# #         result = 'does not exist'
-# #
-# #     return result
+# def add_user_product(username):
+#     barcode_info = scan_barcode()
+#     barcode = barcode_info['barcode']
+#     #     is in DB?
+#     try:
+#         result = Barcode.objects.filter(Barcode.barcode_no == barcode)
+#         user = User.objects.filter(User.username == username)
+#         user.barcode_no = barcode
+#         user.save()
+#     except:
+#         result = 'does not exist'
 #
-def add_user_product(request):
+#     return result
+
+def add_user_product(username):
     product_dict = dict()
-    if request.user.is_authenticated:
-        username = request.user.username
-        # user_id = User.objects.filter(username=request.user.username)[0].id
+    barcode_info = scan_barcode()
+    # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
+    barcode = barcode_info['barcode']
 
-        barcode_info = scan_barcode()
-        # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
-        barcode = barcode_info['barcode']
+    try:
+        # //TODO: implement the OCR
+        product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
+        result = Barcode.objects.filter(barcode_no= barcode)
+        product_dict['barcode_no'] = result[0].barcode_no
 
-        try:
-            # //TODO: implement the OCR
-            product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
-            result = Barcode.objects.filter(barcode_no= barcode)
-            product_dict['barcode_no'] = result[0].barcode_no
+        new_product = UserProduct()
+        new_product.add_product(product_dict, username)
+        # user = User.objects.filter(username = username)
+        # user.barcode_no = barcode
+        new_product.save()
+        result = 'done'
+    except:
+        result = 'does not exist'
 
-            new_product = UserProduct()
-            new_product.add_product(product_dict, username)
-            # user = User.objects.filter(username = username)
-            # user.barcode_no = barcode
-            new_product.save()
-            result = 'done'
-        except:
-            result = 'does not exist'
+    return result
 
-    # return result
-    return HttpResponse('this was called TOO - cant believe')
-#
-# def new_barcode(new_bar_dict):
-#     new_bar = Barcode()
-#     new_bar.barcode_no = new_bar_dict['barcode']
-#     new_bar.product_name = new_bar_dict['name']
-#     new_bar.save()
+
+def new_barcode(new_bar_dict):
+    new_bar = Barcode()
+    new_bar.barcode_no = new_bar_dict['barcode']
+    new_bar.product_name = new_bar_dict['name']
+    new_bar.save()
+
+@login_required
+def download_ics(request):
+    c = Calendar()
+    e = Event()
+    e.name = "Test Event"
+    e.begin = "2020-01-01 00:00:00"
+    c.events.add(e)
+
+    return HttpResponse(content_type='application/force-download', content=c)
+
