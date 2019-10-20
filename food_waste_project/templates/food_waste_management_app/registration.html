@@ -8,11 +8,12 @@
 <div class='form-register'>
 
   {% if registered %}
-
-    <h1>Thank you for registering!</h1>
+  <div class="form-register2">
+    <h2>Thank you for registering!</h2>
+  </div>  
   {% else %}
     <div class='container'>
-      <h1> Sign up here: </h1>
+      <h1> Sign up: </h1>
 
       <form enctype="multipart/form-data" method="post">
         {% csrf_token %}

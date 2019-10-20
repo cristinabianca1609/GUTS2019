@@ -1,4 +1,5 @@
 import datetime
+from django.http import JsonResponse
 
 import cv2
 
