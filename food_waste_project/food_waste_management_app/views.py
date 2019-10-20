@@ -3,7 +3,7 @@ from django.http import JsonResponse
 
 import cv2
 
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from food_waste_management_app.forms import UserForm
 
 from django.contrib.auth import authenticate, login, logout
@@ -81,35 +81,24 @@ def user_login(request):
     else:
         return render(request, 'food_waste_management_app/login.html')
 
-def food_monitor(request):
-    return render(request, 'food_waste_management_app/food-monitor.html')
-
-# def sample_view(request):
-#     current_user = request.user
-#     print current_user.id
-
 
 #### Database Queries
 
-def list_user_products(request):
+def food_monitor(request):
     product_exp = dict()
     if request.method == 'GET':
 
         if request.user.is_authenticated:
             # username = request.user.username
             user_id = User.objects.filter(username=request.user.username)[0].id
-
-            result = UserProduct.objects.all().filter(user_id=user_id)
+            result = UserProduct.objects.all() #.filter(user_id=user_id)
             for i in result:
                 name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
                 product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
-            print (product_exp)
+            #print (product_exp)
+            print(result)
 
-        return JsonResponse(product_exp)  # dictinary - list value
-    return HttpResponse('this was called - cant believe')
-
-
-# return JsonResponse({'foo':'bar'})
+    return render(request, 'food_waste_management_app/food-monitor.html', {'dict': product_exp})
 
 
 def scan_barcode():
@@ -171,4 +160,3 @@ def download_ics(request):
     c.events.add(e)
 
     return HttpResponse(content_type='application/force-download', content=c)
-

@@ -1,3 +1,16 @@
 <!DOCTYPE html>
 {% extends "food_waste_management_app/base.html" %}
 {% load staticfiles %}
+{% block body_block %}
+{% if user.is_authenticated %}
+
+  {% if not dict %}<b>You have added no food.</b>{% endif %}
+  {% for product in dict %}
+  <table>
+    <li>
+      {{product}}
+    </li>
+  </table>
+  {% endfor %}
+{% endif %}
+{% endblock %}
