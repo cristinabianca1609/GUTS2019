@@ -164,6 +164,11 @@ def new_barcode(new_bar_dict):
 def capture(request):
     return render(request, 'food_waste_management_app/capture.html')
 
+def capture_handler(request):
+    print("request received")
+    print(request.POST["type"]);
+    return HttpResponse()
+
 @login_required
 def download_ics(request):
     c = Calendar()
