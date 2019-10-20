@@ -135,16 +135,18 @@ def add_user_product(request):
             new_product.save()
             result = 'done'
         except:
+
+            new_barcode()
             result = 'does not exist'
 
     # return result
     return HttpResponse('this was called TOO - cant believe')
-#
-# def new_barcode(new_bar_dict):
-#     new_bar = Barcode()
-#     new_bar.barcode_no = new_bar_dict['barcode']
-#     new_bar.product_name = new_bar_dict['name']
-#     new_bar.save()
+
+def new_barcode(new_bar_dict):
+    new_bar = Barcode()
+    new_bar.barcode_no = new_bar_dict['barcode']
+    new_bar.product_name = new_bar_dict['name']
+    new_bar.save()
 
 ####video
 
