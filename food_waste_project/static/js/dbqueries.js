@@ -6,3 +6,8 @@ function add_user_product() {
     $.get('/food_waste_management_app/add_user_product/');
 //    toastr.error('Add new product called!');
 };
+
+function new_barcode(){
+    $.get('/food_waste_management_app/new_barcode/');
+
+}
