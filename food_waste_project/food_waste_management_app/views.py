@@ -1,4 +1,5 @@
 import datetime
+from django.http import JsonResponse
 
 import cv2
 
@@ -88,19 +89,66 @@ def food_monitor(request):
 
 #### Database Queries
 
-def list_user_products(id):
-    result = UserProduct.objects.all().filter(user_id=id)
+# def foo(request):
+#     if request.method == 'GET':
+#         print('request', request)
+#         print ('this function was triggered')
+#     else:
+#         print ('fdddddddd')
+#     response = ''
+#     #
+#     # random_var = None
+#     #
+#     # if request.method == 'GET':
+#     #     random_var = request.GET['random_var']
+#     #     print('var_id is ', random_var)
+#     # if request.method == 'get':
+#     #     # form  = FooForm(request.get)
+#     #     val = form.cleaned_data.get('btn')
+#     # return render(request, 'index.html', locals())
+#
+#     return HttpResponse()
+
+#
+# def print_from_button(request):
+#
+#     if(request.GET.get('print_btn')):
+#         print( int(request.GET.get('mytextbox')) )
+#         print('Button clicked')
+#     return render(request, 'your-template.html',{'value':'Button clicked'})
+
+
+# def _get_username(request):
+#     username = None
+#     if request.user.is_authenticated():
+#         username = request.user.username
+#         user_id = User.objects.filter(username=username)[0]
+#         return user_id
+#     return username
+
+def list_user_products(request):
     product_exp = dict()
-    for i in result:
-        name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
-        product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
+    if request.method == 'GET':
 
-    return product_exp  # dictinary - list value
+        if request.user.is_authenticated:
+            # username = request.user.username
+            user_id = User.objects.filter(username=request.user.username)[0].id
+
+            result = UserProduct.objects.all().filter(user_id=user_id)
+            for i in result:
+                name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
+                product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
+            print (product_exp)
+
+        return JsonResponse(product_exp)  # dictinary - list value
+    return HttpResponse('this was called - cant believe')
 
 
-def get_user_id(username):
-    result = User.objects.filter(username=username)[0]
-    return result.id  # user_id
+# return JsonResponse({'foo':'bar'})
+#
+# def get_user_id(username):
+#     result = User.objects.filter(username=username)[0]
+#     return result.id  # user_id
 
 def scan_barcode():
     cap = cv2.VideoCapture(0)
@@ -114,46 +162,50 @@ def scan_barcode():
         #     break
 
 
-# def add_user_product(username):
-#     barcode_info = scan_barcode()
-#     barcode = barcode_info['barcode']
-#     #     is in DB?
-#     try:
-#         result = Barcode.objects.filter(Barcode.barcode_no == barcode)
-#         user = User.objects.filter(User.username == username)
-#         user.barcode_no = barcode
-#         user.save()
-#     except:
-#         result = 'does not exist'
+# # def add_user_product(username):
+# #     barcode_info = scan_barcode()
+# #     barcode = barcode_info['barcode']
+# #     #     is in DB?
+# #     try:
+# #         result = Barcode.objects.filter(Barcode.barcode_no == barcode)
+# #         user = User.objects.filter(User.username == username)
+# #         user.barcode_no = barcode
+# #         user.save()
+# #     except:
+# #         result = 'does not exist'
+# #
+# #     return result
 #
-#     return result
-
-def add_user_product(username):
+def add_user_product(request):
     product_dict = dict()
-    barcode_info = scan_barcode()
-    # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
-    barcode = barcode_info['barcode']
+    if request.user.is_authenticated:
+        username = request.user.username
+        # user_id = User.objects.filter(username=request.user.username)[0].id
 
-    try:
-        # //TODO: implement the OCR
-        product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
-        result = Barcode.objects.filter(barcode_no= barcode)
-        product_dict['barcode_no'] = result[0].barcode_no
+        barcode_info = scan_barcode()
+        # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
+        barcode = barcode_info['barcode']
 
-        new_product = UserProduct()
-        new_product.add_product(product_dict, username)
-        # user = User.objects.filter(username = username)
-        # user.barcode_no = barcode
-        new_product.save()
-        result = 'done'
-    except:
-        result = 'does not exist'
+        try:
+            # //TODO: implement the OCR
+            product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
+            result = Barcode.objects.filter(barcode_no= barcode)
+            product_dict['barcode_no'] = result[0].barcode_no
 
-    return result
+            new_product = UserProduct()
+            new_product.add_product(product_dict, username)
+            # user = User.objects.filter(username = username)
+            # user.barcode_no = barcode
+            new_product.save()
+            result = 'done'
+        except:
+            result = 'does not exist'
 
-
-def new_barcode(new_bar_dict):
-    new_bar = Barcode()
-    new_bar.barcode_no = new_bar_dict['barcode']
-    new_bar.product_name = new_bar_dict['name']
-    new_bar.save()
+    # return result
+    return HttpResponse('this was called TOO - cant believe')
+#
+# def new_barcode(new_bar_dict):
+#     new_bar = Barcode()
+#     new_bar.barcode_no = new_bar_dict['barcode']
+#     new_bar.product_name = new_bar_dict['name']
+#     new_bar.save()
