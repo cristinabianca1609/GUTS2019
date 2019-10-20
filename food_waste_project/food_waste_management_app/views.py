@@ -94,7 +94,7 @@ def food_monitor(request):
             result = UserProduct.objects.all() #.filter(user_id=user_id)
             for i in result:
                 name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
-                product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
+                product_exp[i.user_product_id] = {'product':name[0].product_name.strip('\n'),'date': i.exp_date}
             #print (product_exp)
             print(result)
 
