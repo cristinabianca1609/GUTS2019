@@ -1,9 +1,8 @@
 {% extends "food_waste_management_app/base.html" %}
 {% load staticfiles %}
 
-
-<title>Food Waste Management</title>
 {% block body_block %}
+<title>Food Waste Management</title>
 
 
   <img class='front-image' src="{% static 'images/front-page.png' %}" />
@@ -15,17 +14,24 @@
             <!--<button class="btn btn-primary" onclick = "console.log('button pressed');foo();" >TestFoo</button>-->
 
           <button type="button" class="btn btn-success btn2" onclick="console.log('button pressed');list_user_products()">
-              <a class="a-button">FOOD MONITOR</a></button>
+              <a class="a-button">FOOD MONITOR</a>
+          </button>
                                 <!--href="{% url 'food_waste_management_app:food_monitor' %}">FOOD MONITOR</a></button>-->
 
 
-          <button type="button" class="btn btn-success btn2" onclick="console.log('button pressed');add_user_product()">
-              <a class="a-button" ></a></button>
+          <button type="button" class="btn btn-success btn3" onclick="console.log('button pressed');add_user_product()">
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              <a class="a-button2" >SCAN PRODUCT</a>
+          </button>
             <!--href="{% url 'food_waste_management_app:food_monitor' %}"></a>-->
 
-              <i class="fa fa-camera" aria-hidden="true"></i>
-          </button>
-        </div>
+
+
+
+
+<!--<button class="btn btn-danger" onclick = "removebookmark({{ concert.concertID}});hideparent(this, true);" >Remove Bookmark</button>-->
+
+
       </div>
       {% else %}
       <div class="box">

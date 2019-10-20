@@ -1,4 +1,4 @@
-import requests, json, re
+import requests, json, re, dateparser
 
 def api_request(filename, apikey, language='eng'):
     url = 'https://api.ocr.space/parse/image'
@@ -16,7 +16,7 @@ def date_segment_valid(seg):
 def parse_response(raw):
     text  = json.loads(raw)["ParsedResults"][0]["ParsedText"]
     regex = re.findall(r'\b(0[1-9]|[1-2][0-9]|3[0-1]|[A-Za-z]{3,9}|20\d{2})\b', text)
-    date  = dateparser.parse(" ".join(regex.split()))
+    date  = dateparser.parse(" ".join(regex))
     return date
 
 filename = "../static/images/expiry02_mini.jpg"
