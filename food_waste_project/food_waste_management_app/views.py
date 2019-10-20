@@ -31,7 +31,7 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-
+        
         if user_form.is_valid():
 
             user = user_form.save()
