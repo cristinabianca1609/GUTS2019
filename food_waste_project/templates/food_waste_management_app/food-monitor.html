@@ -5,12 +5,18 @@
 {% if user.is_authenticated %}
 
   {% if not dict %}<b>You have added no food.</b>{% endif %}
-  {% for product in dict %}
+  {% for key, value in dict.items %}
   <table>
     <li>
-      {{product}}
+      {{value}}
     </li>
   </table>
   {% endfor %}
 {% endif %}
 {% endblock %}
+
+<!--Fetch both the key and the value from the dictionary in the loop:-->
+
+<!--{% for key, value in mydict.items %}-->
+    <!--{{ value }}-->
+<!--{% endfor %}-->
