@@ -167,4 +167,3 @@ def download_ics(request):
     c.events.add(e)
 
     return HttpResponse(content_type='application/force-download', content=c)
-

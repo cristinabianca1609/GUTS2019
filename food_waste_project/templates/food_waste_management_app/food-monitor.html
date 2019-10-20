@@ -7,10 +7,15 @@
   {% if not dict %}<b>You have added no food.</b>{% endif %}
   {% for key, value in dict.items %}
   <table>
-    <li>
-            {{value.product}} {{value.date}}
+    <tr>
+      <th> Product name </th>
+      <th> Expiration date </th>
+    </tr>
 
-    </li>
+    <tr>
+      <td> {{value.product}} </td>
+      <td> {{value.date}} </td>
+    </tr>
 
 
   </table>
