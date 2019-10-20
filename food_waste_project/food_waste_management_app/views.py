@@ -38,7 +38,7 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        
+
         if user_form.is_valid():
 
             user = user_form.save()
@@ -78,6 +78,8 @@ def user_login(request):
     else:
         return render(request, 'food_waste_management_app/login.html')
 
+def food_monitor(request):
+    return render(request, 'food_waste_management_app/food-monitor.html')
 
 # def sample_view(request):
 #     current_user = request.user
@@ -155,5 +157,3 @@ def new_barcode(new_bar_dict):
     new_bar.barcode_no = new_bar_dict['barcode']
     new_bar.product_name = new_bar_dict['name']
     new_bar.save()
-
-

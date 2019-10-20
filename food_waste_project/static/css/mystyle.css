@@ -73,13 +73,29 @@ body{
       right: 0;
 			margin-top: 200px;
       text-align: center;
-      top: 40%; /* Adjust this value to move the positioned div up and down */
+      top: 20%; /* Adjust this value to move the positioned div up and down */
       background: rgba(0, 0, 0, 0.8);
 			border-radius: 80px;
 			padding: 40px;
       color: #fff;
       width: 40%; /* Set the width of the positioned div */
 		}
+
+.box2 .text2{
+		      position: absolute;
+		      z-index: 999;
+		      margin: 0 auto;
+		      left: 0;
+		      right: 0;
+					margin-top: 5%;
+		      text-align: center;
+		      top: 20%; /* Adjust this value to move the positioned div up and down */
+		      background: rgba(0, 0, 0, 0);
+
+					padding: 40px;
+		      color: #fff;
+		      width: 40%; /* Set the width of the positioned div */
+				}
 
 .form-register {
 	position: absolute;
@@ -96,6 +112,40 @@ body{
 	border-radius: 20px;
 	color: #fff;
 
+}
+
+.login-form {
+	position: absolute;
+	z-index: 999;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	padding-bottom: 100px;
+	padding-top: 20px;
+	padding-left: 10px;
+	margin-top: 10%;
+	width: 100%;
+	text-align: left;
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+}
+
+.btn {
+	padding-bottom: 1.7px;
+	padding-top: 1.7px;
+	margin-bottom: 1px;
+}
+
+.btn2 {
+	padding: 20px;
+	font-size: 20px;
+	border-radius: 80px;
+}
+
+a, u {
+	text-decoration: none !important;
+	color: #FEC822;
+	font-weight: bold;
 }
 
 /*===============This applies different styles for different media types/devices==================*/

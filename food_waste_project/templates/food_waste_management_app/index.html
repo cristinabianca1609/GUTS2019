@@ -7,10 +7,23 @@
 
 
   <img class='front-image' src="{% static 'images/front-page.png' %}" />
-  <div class="box">
-    <div class="text">
-      <h1> Say no to food waste with us! </h1>
-    </div>
+
+      {% if user.is_authenticated %}
+      <div class="box2">
+        <div class="text2">
+          <button type="button" class="btn btn-success btn2"><a class="a-button" href="{% url 'food_waste_management_app:food_monitor' %}">FOOD MONITOR</a></button>
+          <button type="button" class="btn btn-success btn2"><a class="a-button" href="{% url 'food_waste_management_app:food_monitor' %}"></a>
+            <i class="fa fa-camera" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      {% else %}
+      <div class="box">
+        <div class="text">
+          <h1> Say no to food waste with us! </h1>
+        </div>
+      </div>
+    {% endif %}
   <div>
 
 {% endblock %}

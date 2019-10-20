@@ -12,12 +12,12 @@
     <h1>Thank you for registering!</h1>
   {% else %}
     <div class='container'>
-      <h1>Sign up here: </h1>
+      <h1> Sign up here: </h1>
 
       <form enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ user_form.as_p }}
-        <input type="submit" value="Register">
+        <input type="submit" class="btn btn-warning" value="Register">
       </form>
     </div>
 
