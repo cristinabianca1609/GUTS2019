@@ -152,13 +152,19 @@ body{
 	font-size: 20px;
 	border-radius: 80px;
 	font-weight: bold;
-	
+
 }
 
 a, u {
 	text-decoration: none !important;
 	color: #FEC822;
 	font-weight: bold;
+}
+
+a:hover {
+	color:#00A0C6;
+	text-decoration: none !important;
+	cursor: pointer;
 }
 
 
