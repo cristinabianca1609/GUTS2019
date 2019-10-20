@@ -160,6 +160,9 @@ def new_barcode(new_bar_dict):
     new_bar.product_name = new_bar_dict['name']
     new_bar.save()
 
+def capture(request):
+    return render(request, 'food_waste_management_app/capture.html')
+
 @login_required
 def download_ics(request):
     c = Calendar()
