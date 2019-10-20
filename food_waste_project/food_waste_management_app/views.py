@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-
+from ics import Calendar, Event
+from food_waste_management_app.models import UserProduct
 
 
 #Here you import any models that we will need to use
@@ -70,3 +71,14 @@ def user_login(request):
             return HttpResponse('invalid login details supplied!')
     else:
         return render(request, 'food_waste_management_app/login.html')
+
+@login_required
+def download_ics(request):
+    c = Calendar()
+    e = Event()
+    e.name = "Test Event"
+    e.begin = "2020-01-01 00:00:00"
+    c.events.add(e)
+
+    #return HttpResponse(content_type='application/force-download', content=c)
+    return HttpResponse(UserProduct.objects.all())
