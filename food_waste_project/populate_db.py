@@ -62,9 +62,9 @@ def populate_users():
     add_user(u3)
 
 def populate_user_product():
-    add_product(p1, 'lenka')
-    # add_product(p2, 'cristina')
-    add_product(p3, 'lenka')
+    # add_product(p1, 'lenka')
+    add_product(p2, 'cristina')
+    # add_product(p3, 'lenka')
 
 
 def runner():
