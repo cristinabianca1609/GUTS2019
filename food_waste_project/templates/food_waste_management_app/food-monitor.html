@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 {% extends "food_waste_management_app/base.html" %}
 {% load staticfiles %}
+{% block body_block %}
+{% if user.is_authenticated %}
 
-
-
-It took me a while but I think that I have finally found an answer for my question.
-
-adding this in to the views.py
-
-
-
-{% for student in student_number %}
-    {{ student.f_name}}
-    {{ student.l_name }}
-    {{ student.student_number }}
-    {{ student.dob }}
-{% endfor %}
+  {% if not dict %}<b>You have added no food.</b>{% endif %}
+  {% for product in dict %}
+  <table>
+    <li>
+      {{product}}
+    </li>
+  </table>
+  {% endfor %}
+{% endif %}
+{% endblock %}
