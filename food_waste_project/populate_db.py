@@ -170,7 +170,7 @@ def runner():
     add_user_product('lenka')
     pass
 
->>>>>>> Stashed changes
+#>>>>>>> Stashed changes
 
 if __name__ == '__main__':
     print("populating script!")
