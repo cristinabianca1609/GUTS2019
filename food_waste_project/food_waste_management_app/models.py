@@ -13,13 +13,13 @@ class Barcode(models.Model):
     barcode_id = models.IntegerField(primary_key=True, unique=True, null=False, auto_created=True)
     barcode_no = models.TextField(unique=True, null=False, auto_created=True)
     product_name = models.TextField(null=False)
-    url = models.URLField()
+    # url = models.URLField()
 
     def new_barcode(self, barcode_info):
         self.barcode_no = barcode_info['barcode_no']
         self.product_name = barcode_info['name']
         # if 'url' in barcode_info:
-        #     self.url = barcode_info['url']
+            # self.url = barcode_info['url']
 
 
 class UserProduct(models.Model):
@@ -39,8 +39,3 @@ class UserProduct(models.Model):
 
         user_obj = User.objects.filter(username = username)[0]
         self.user = user_obj
-
-
-
-
-
