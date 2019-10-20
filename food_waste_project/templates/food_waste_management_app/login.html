@@ -6,7 +6,7 @@
 <div>
   <img class='front-image' src="{% static 'images/front-page.png' %}" />
 <div class="login-form">
-  <h1>Please Login</h1>
+  <h1>Please Login:</h1>
   <form action="{% url 'food_waste_management_app:user_login' %}" method="post">
     {% csrf_token %}
     <label for="username">Username: </label>
