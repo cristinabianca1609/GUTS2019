@@ -5,7 +5,7 @@
 {% if user.is_authenticated %}
 
   {% if not dict %}<b>You have added no food.</b>{% endif %}
-  {% for key, value in dict.items %}
+
   <table>
     <tr>
       <th> Product name </th>
@@ -13,13 +13,14 @@
     </tr>
 
     <tr>
-      <td> {{value.product}} </td>
-      <td> {{value.date}} </td>
+      {% for key, value in dict.items %}
+        <td> {{value.product}} </td>
+        <td> {{value.date}} </td>
     </tr>
-
+      {% endfor %}
 
   </table>
-  {% endfor %}
+
 {% endif %}
 {% endblock %}
 
