@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87c11b84-543e-45b5-a430-5e4e0b91c422" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/generalized_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/food_waste_management_app/database_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_waste_management_app/database_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_waste_management_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_waste_management_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/food_waste_management_app/scanner.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_waste_management_app/scanner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/food_waste_management_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_waste_management_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/food_waste_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/food_waste_project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/populate_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/populate_db.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/food_waste_management_app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="240">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -222,8 +227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/food_waste_management_app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        <state relative-caret-position="240">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>

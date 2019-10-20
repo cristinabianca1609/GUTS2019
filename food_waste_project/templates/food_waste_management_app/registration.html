@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 {% extends "food_waste_management_app/base.html" %}
+{% load staticfiles %}
 
 {% block body_block %}
 
-<div class="jumbotron">
+<img class='front-image' src="{% static 'images/front-page.png' %}" />
+<div class='form-register'>
+
   {% if registered %}
+
     <h1>Thank you for registering!</h1>
   {% else %}
-    <h1>Register here!</h1>
-    <h3>Fill out the form:</h3>
+    <div class='container'>
+      <h1> Sign up here: </h1>
 
-    <form enctype="multipart/form-data" method="post">
-      {% csrf_token %}
-      {{ user_form.as_p }}
-      <input type="submit" value="Register">
-    </form>
+      <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input type="submit" class="btn btn-warning" value="Register">
+      </form>
+    </div>
 
   {% endif %}
 </div>

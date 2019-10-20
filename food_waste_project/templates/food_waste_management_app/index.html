@@ -1,21 +1,29 @@
 {% extends "food_waste_management_app/base.html" %}
 {% load staticfiles %}
 
-{% block body_block %}
-<title>Food Waste Management</title>
 
-<div class="container">
-  <div class="row">
-      <div class="col">
-        <img id="front" src="{% static "images/front-page.png" %}" alt = '' />
-      </div>
-      <div class="col">
-        <p id="front-text"> Making food management easy so you can reduce food waste, save time,
-          money and the planet. </p>
-        <div class="col">
-          <button type="button" class="btn btn-primary" >TEST</button>
+<title>Food Waste Management</title>
+{% block body_block %}
+
+
+  <img class='front-image' src="{% static 'images/front-page.png' %}" />
+
+      {% if user.is_authenticated %}
+      <div class="box2">
+        <div class="text2">
+          <button type="button" class="btn btn-success btn2"><a class="a-button" href="{% url 'food_waste_management_app:food_monitor' %}">FOOD MONITOR</a></button>
+          <button type="button" class="btn btn-success btn2"><a class="a-button" href="{% url 'food_waste_management_app:food_monitor' %}"></a>
+            <i class="fa fa-camera" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
-  </div>
-</div>
+      {% else %}
+      <div class="box">
+        <div class="text">
+          <h1> Say no to food waste with us! </h1>
+        </div>
+      </div>
+    {% endif %}
+  <div>
+
 {% endblock %}
