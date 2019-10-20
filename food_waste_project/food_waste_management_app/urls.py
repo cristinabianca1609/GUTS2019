@@ -14,6 +14,5 @@ urlpatterns =[
     url(r'^capture_handler/$', views.capture_handler, name='capture_handler'),
     # url(r'^foo/$', views.foo, name='foo'),
     url(r'^add_user_product/$', views.add_user_product, name='add_user_product'),
-    url(r'^list_user_products/$', views.list_user_products, name='list_user_products'),
     url(r'^download.ics$', views.download_ics, name='download_ics'),
     ]

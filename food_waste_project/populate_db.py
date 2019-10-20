@@ -15,7 +15,7 @@ from food_waste_management_app.models import User, UserProduct, Barcode
 
 # User.objects.all().delete()
 # UserProduct.objects.all().delete()
-# Barcode.objects.all().delete()
+Barcode.objects.all().delete()
 
 
 def add_barcode(d):
@@ -52,8 +52,8 @@ def populate_barcode():
         for line in f.readlines()[1:]:
             full_line = line.split(';')
             add_barcode({'barcode_no': full_line[0],
-                        'name': full_line[2],
-                        'url':full_line[1]
+                        'name': full_line[2]
+                        # 'url':full_line[1]
                              })
 
 def populate_users():
@@ -62,9 +62,9 @@ def populate_users():
     add_user(u3)
 
 def populate_user_product():
-    add_product(p1, 'lenka')
+    add_product(p1, 'Lenka')
     # add_product(p2, 'cristina')
-    add_product(p3, 'lenka')
+    add_product(p3, 'Lenka')
 
 
 def runner():
@@ -83,8 +83,8 @@ def runner():
     # add_product(p2, 'cristina')
     # add_product(p3, 'lenka')
 
-    # populate_barcode()
-    populate_user_product()
+    populate_barcode()
+    # populate_user_product()
 
 
 if __name__ == '__main__':

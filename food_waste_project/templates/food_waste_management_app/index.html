@@ -14,12 +14,15 @@
             <!--<button class="btn btn-primary" onclick = "console.log('button pressed');foo();" >TestFoo</button>-->
 
           <button type="button" class="btn btn-success btn2" onclick="console.log('button pressed');list_user_products()">
-              <a class="a-button">FOOD MONITOR</a></button>
-                                <!--href="{% url 'food_waste_management_app:food_monitor' %}">FOOD MONITOR</a></button>-->
+              <a class="a-button">FOOD MONITOR
+          <!--</button>-->
+                                href="{% url 'food_waste_management_app:food_monitor' %}">FOOD MONITOR</a></button>
 
 
           <button type="button" class="btn btn-success btn3" onclick="console.log('button pressed');add_user_product()">
-              <a class="a-button" ></a>  <i class="fa fa-camera" aria-hidden="true"></i></button>
+              <i class="fa fa-camera" aria-hidden="true"></i>
+              <a class="a-button2" >SCAN PRODUCT</a>
+          </button>
             <!--href="{% url 'food_waste_management_app:food_monitor' %}"></a>-->
 
 
@@ -33,7 +36,7 @@
       {% else %}
       <div class="box">
         <div class="text">
-          <h1> Say no to food waste with us! </h1>
+          <h1> Say no to food waste! </h1>
         </div>
       </div>
     {% endif %}

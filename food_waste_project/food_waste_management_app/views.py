@@ -3,7 +3,7 @@ from django.http import JsonResponse
 
 import cv2
 
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from food_waste_management_app.forms import UserForm
 
 from django.contrib.auth import authenticate, login, logout
@@ -81,29 +81,25 @@ def user_login(request):
     else:
         return render(request, 'food_waste_management_app/login.html')
 
-def food_monitor(request):
-    return render(request, 'food_waste_management_app/food-monitor.html')
-
-# def sample_view(request):
-#     current_user = request.user
-#     print current_user.id
-
 
 #### Database Queries
 
-def list_user_products(id):
-    result = UserProduct.objects.all().filter(user_id=id)
+def food_monitor(request):
     product_exp = dict()
-    for i in result:
-        name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
-        product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
+    if request.method == 'GET':
 
-    return product_exp  # dictinary - list value
+        if request.user.is_authenticated:
+            # username = request.user.username
+            user_id = User.objects.filter(username=request.user.username)[0].id
+            result = UserProduct.objects.all() #.filter(user_id=user_id)
+            for i in result:
+                name = Barcode.objects.filter(barcode_id=i.barcode_id)  # .values('product_name')
+                product_exp[i.user_product_id] = [name[0].product_name.strip('\n'), i.exp_date]
+            #print (product_exp)
+            print(result)
 
+    return render(request, 'food_waste_management_app/food-monitor.html', {'dict': product_exp})
 
-def get_user_id(username):
-    result = User.objects.filter(username=username)[0]
-    return result.id  # user_id
 
 def scan_barcode():
     cap = cv2.VideoCapture(0)
@@ -116,50 +112,41 @@ def scan_barcode():
         # if code == ord('q'):
         #     break
 
-
-# def add_user_product(username):
-#     barcode_info = scan_barcode()
-#     barcode = barcode_info['barcode']
-#     #     is in DB?
-#     try:
-#         result = Barcode.objects.filter(Barcode.barcode_no == barcode)
-#         user = User.objects.filter(User.username == username)
-#         user.barcode_no = barcode
-#         user.save()
-#     except:
-#         result = 'does not exist'
-#
-#     return result
-
-def add_user_product(username):
+def add_user_product(request):
     product_dict = dict()
-    barcode_info = scan_barcode()
-    # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
-    barcode = barcode_info['barcode']
+    if request.user.is_authenticated:
+        username = request.user.username
+        # user_id = User.objects.filter(username=request.user.username)[0].id
 
-    try:
-        # //TODO: implement the OCR
-        product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
-        result = Barcode.objects.filter(barcode_no= barcode)
-        product_dict['barcode_no'] = result[0].barcode_no
+        barcode_info = scan_barcode()
+        # barcode_info = {'barcode': '123123', 'type': 'EAN13'}
+        barcode = barcode_info['barcode']
 
-        new_product = UserProduct()
-        new_product.add_product(product_dict, username)
-        # user = User.objects.filter(username = username)
-        # user.barcode_no = barcode
-        new_product.save()
-        result = 'done'
-    except:
-        result = 'does not exist'
+        try:
+            # //TODO: implement the OCR
+            product_dict['exp_date'] = datetime.datetime.utcnow()+datetime.timedelta(days=3)
+            result = Barcode.objects.filter(barcode_no= barcode)
+            product_dict['barcode_no'] = result[0].barcode_no
 
-    return result
+            new_product = UserProduct()
+            new_product.add_product(product_dict, username)
+            # user = User.objects.filter(username = username)
+            # user.barcode_no = barcode
+            new_product.save()
+            result = 'done'
+        except:
+            result = 'does not exist'
 
+    # return result
+    return HttpResponse('this was called TOO - cant believe')
+#
+# def new_barcode(new_bar_dict):
+#     new_bar = Barcode()
+#     new_bar.barcode_no = new_bar_dict['barcode']
+#     new_bar.product_name = new_bar_dict['name']
+#     new_bar.save()
 
-def new_barcode(new_bar_dict):
-    new_bar = Barcode()
-    new_bar.barcode_no = new_bar_dict['barcode']
-    new_bar.product_name = new_bar_dict['name']
-    new_bar.save()
+####video
 
 def capture(request):
     return render(request, 'food_waste_management_app/capture.html')
